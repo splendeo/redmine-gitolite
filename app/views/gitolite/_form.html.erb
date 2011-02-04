@@ -1,0 +1,9 @@
+	<p>
+		<%= f.check_box :read, :label => :field_read %>
+		<%= f.check_box :write, :label => :field_write %>
+		<%= f.check_box :rewind, :label => :field_rewind %>
+
+		<%= f.text_field :branch, :required => true, :label => :field_branch %>
+		
+		<%= f.text_field :access, :required => true, :label => :field_access %>
+	</p>

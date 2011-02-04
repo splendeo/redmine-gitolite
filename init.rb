@@ -20,6 +20,10 @@ Redmine::Plugin.register :redmine_gitolite do
     'basePath' => '/srv/projects/git/repositories/',
     }, 
     :partial => 'redmine_gitolite'
+  project_module :gitolite do
+    permission :admin_gitolite, :gitolite => :index
+  end
+  menu :project_menu, :gitolite, { :controller => 'gitolite', :action => 'index' }, :caption => 'Gitolite', :after => :activity
 end
 
 # initialize hook
