@@ -27,10 +27,6 @@ class GitolitePublicKeyHook < Redmine::Hook::ViewListener
   render_on :view_my_account_contextual, :inline => "| <%= link_to(l(:label_public_keys), public_keys_path) %>" 
 end
 
-class GitoliteProjectShowHook < Redmine::Hook::ViewListener
-  render_on :view_projects_show_left, :partial => 'redmine_gitolite'
-end
-
 # initialize association from user -> public keys
 User.send(:has_many, :gitolite_public_keys, :dependent => :destroy)
 
