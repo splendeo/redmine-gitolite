@@ -1,20 +1,23 @@
 <%# This is used to display basic git setup instructions, like on github... %>
 <% flash.now[:error] = "Repository does not exist. Create one using the instructions below." %>
 <div class="box">
-	
+
 <h2>Git Setup:</h2>
-<pre>  <a href="http://git-scm.com/download" target="_blank">Download and Install Git</a>
+<pre>
+  <a href="http://git-scm.com/download" target="_blank">Download and Install Git</a>
   git config --global user.name "<%= User.current.login %>"
   git config --global user.email <%= User.current.mail %>
 </pre>
 
 <h2>Permission Setup:</h2>
-<pre>  <%= link_to "Upload SSH Public Key", {:controller => 'my', :action => 'public_keys'} %>
+<pre>
+  <%= link_to "Upload SSH Public Key", {:controller => 'my', :action => 'public_keys'} %>
   Add yourself as a project developer: <%= link_to @project.name + " Settings", {:controller => 'projects', :action => 'settings'} %> -&gt; Members Tab -&gt; New Member
 </pre>
 
 <h2>Repository Setup:</h2>
-<pre>  mkdir <%= @project.identifier %>
+<pre>
+  mkdir <%= @project.identifier %>
   cd <%= @project.identifier %>
   git init
   touch README
@@ -25,9 +28,22 @@
 </pre>
 
 <h2>Existing Git Repo?</h2>
-<pre>  cd existing_git_repo
+<pre>
+  cd existing_git_repo
   git remote add origin <%= Setting.plugin_redmine_gitolite['developerBaseUrls'] + Gitolite.repository_name(@project) + '.git' %>
   git push origin master
-</pre>    
-  
+</pre>
+
+<h2>Mirroring a Git Repo from GitHub?</h2>
+<pre>
+  ssh server
+  su git
+  cd &tilde;/repositories
+  cd /projects/parent/path/
+  git clone --bare git://github.com/user/project.git
+  git remote add origin git://github.com/user/project.git
+  git fetch -v
+  exit
+</pre>
+<p>Note: If possible configure the GitHub hook "Post-Receive URL"</p>
 </div>
