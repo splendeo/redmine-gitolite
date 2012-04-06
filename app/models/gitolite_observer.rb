@@ -21,7 +21,8 @@ class GitoliteObserver < ActiveRecord::Observer
       when User then Gitolite::update_repositories(object.projects) unless is_login_save?(object)
       when GitolitePublicKey then Gitolite::update_repositories(object.user.projects)
       when Member then Gitolite::update_repositories(object.project)
-      when Role then Gitolite::update_repositories(object.members.map(&:project).uniq.compact)
+      when Role
+        Gitolite::update_repositories(object.members.map(&:project).uniq.compact) if Project.count > 0
     end
   end
   
