@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'redmine'
 require_dependency 'principal'
 require_dependency 'user'
@@ -5,7 +7,6 @@ require_dependency 'user'
 require_dependency 'gitolite'
 require_dependency 'gitolite/patches/repositories_controller_patch'
 require_dependency 'gitolite/patches/repositories_helper_patch'
-require_dependency 'gitolite/patches/git_adapter_patch'
 
 Redmine::Plugin.register :redmine_gitolite do
   name 'Redmine Gitolite plugin'
@@ -18,13 +19,13 @@ Redmine::Plugin.register :redmine_gitolite do
     'developerBaseUrls' => 'git@www.salamander-linux.com:,https://[user]@www.salamander-linux.com/git/',
     'readOnlyBaseUrls' => 'http://www.salamander-linux.com/git/',
     'basePath' => '/srv/projects/git/repositories/',
-    }, 
+    },
     :partial => 'redmine_gitolite'
 end
 
 # initialize hook
 class GitolitePublicKeyHook < Redmine::Hook::ViewListener
-  render_on :view_my_account_contextual, :inline => "| <%= link_to(l(:label_public_keys), public_keys_path) %>" 
+  render_on :view_my_account_contextual, :inline => "| <%= link_to(l(:label_public_keys), public_keys_path) %>"
 end
 
 # initialize association from user -> public keys

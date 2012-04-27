@@ -5,12 +5,12 @@ module Gitolite
 
       def show_with_git_instructions
         if @repository.is_a?(Repository::Git) and @repository.entries(@path, @rev).blank?
-          render :action => 'git_instructions' 
+          render :action => 'git_instructions'
         else
           show_without_git_instructions
         end
       end
-      
+
       def edit_with_scm_settings
         params[:repository] ||= {}
         if(@project.parent)
@@ -18,8 +18,8 @@ module Gitolite
           params[:repository][:url] = File.join(Setting.plugin_redmine_gitolite['basePath'], identifiers  ,"#{@project.identifier}.git") if  params[:repository_scm] == 'Git'
         else
           params[:repository][:url] = File.join(Setting.plugin_redmine_gitolite['basePath'],"#{@project.identifier}.git") if  params[:repository_scm] == 'Git'
-        end  
-        
+        end
+
         edit_without_scm_settings
       end
 
